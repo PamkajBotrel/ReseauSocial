@@ -2,6 +2,8 @@ package com.example.demo.helper;
 
 import com.example.demo.pojo.Book;
 import com.example.demo.pojo.BookJSON;
+import com.example.demo.pojo.Post;
+import com.example.demo.pojo.PostJSON;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
@@ -33,4 +35,30 @@ public class Mapper {
         Assert.notNull(bookList, "The bookList must not be null");
         return bookList.stream().map(this::mapTo).collect(Collectors.toList());
     }
+
+
+    public Post mapToPost(PostJSON postJSON) {
+        Assert.notNull(postJSON, "The postJSON must not be null");
+        Post b = new Post();
+        // must not set id !
+        b.setId(postJSON.getId());
+        b.setTitle(postJSON.getTitle());
+        b.setContent(postJSON.getContent());
+        return b;
+    }
+
+    public PostJSON mapToPost(Post post) {
+        Assert.notNull(post, "The post must not be null");
+        PostJSON pJSON = new PostJSON();
+        pJSON.setId(post.getId());
+        pJSON.setTitle(post.getTitle());
+        pJSON.setContent(post.getContent());
+        return pJSON;
+    }
+
+    public List<PostJSON> mapToPost(List<Post> postList) {
+        Assert.notNull(postList, "The postList must not be null");
+        return postList.stream().map(this::mapToPost).collect(Collectors.toList());
+    }
+
 }
